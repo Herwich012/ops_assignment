@@ -1,5 +1,4 @@
-# Operations assignment
-This is the repository for Group 41
+# Operations assignment - Group 41
 
 **data.py** provides all the necesarry data to setup models\
 **fcs.py** provides functions for data- & post processing
