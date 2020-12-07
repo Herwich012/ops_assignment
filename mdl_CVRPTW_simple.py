@@ -58,4 +58,4 @@ print(solution.solve_status)
 active_arcs = [a for a in A if x[a].solution_value > 0.9]
 
 #%% Plotting
-fcs.solplot(AWF,active_arcs)
+fcs.solplottw(AWF,active_arcs,e,l,tau)
