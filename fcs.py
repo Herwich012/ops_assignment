@@ -65,6 +65,41 @@ def solplot(aplocs,solarcs):
                 weight='bold', transform=ccrs.Geodetic(), zorder=2)
     plt.show()
 
+#%% Plotting with time windows
+def solplottw(aplocs,solarcs,twb,twe,tau):
+    """
+    Parameters
+    ----------
+    aplocs : np.array
+        output of the aploc function
+    solarcs : list
+        list of arcs beloning to the solution
+
+    Returns
+    -------
+    Figure of solution
+
+    """
+    fig = plt.figure()
+    ax = fig.add_axes([0, 0, 1, 1], projection=ccrs.LambertConformal(),frameon=False)
+    ax.patch.set_visible(False)
+    ax.set_extent([-120, -70, 22, 50], ccrs.Geodetic())
+    ax.add_feature(cfeature.OCEAN)
+    ax.add_feature(cfeature.COASTLINE)
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.STATES)
+    for i,j in solarcs: #plot lines of solution
+        plt.plot([aplocs[i,2],aplocs[j,2]], [aplocs[i,1],aplocs[j,1]],
+                 transform=ccrs.Geodetic(), c='b', alpha=0.5)
+    ax.scatter(aplocs[1:,2],aplocs[1:,1],transform=ccrs.PlateCarree(), 
+               zorder=2) #plot clients
+    ax.plot(aplocs[0,2], aplocs[0,1], c='r', marker='s',
+            transform=ccrs.PlateCarree(), zorder=2) #plot hub
+    for i in range(len(aplocs)): #annotate locations
+        anntxt = str(aplocs[i,0]) + '-' + str(twb[i]) + '-' + str(twe[i]) + '-' + '%0.1f' % (tau[i])
+        ax.text(aplocs[i,2]+0.5, aplocs[i,1]-0.5, anntxt, weight='bold', transform=ccrs.Geodetic(), zorder=2)
+    plt.show()
+
 
 def hubplot(aplocs):
     """Plot the locations without solution for validation"""
