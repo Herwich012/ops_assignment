@@ -12,7 +12,7 @@ import data
 
 #%%Select data
 OAK = fcs.aploc(data.OAKhub)
-AWF = fcs.aploc(data.AFWhub)
+AWF = fcs.aploc(data.AFWhub_s)
 
 #%%Model parameters
 rnd = np.random
