@@ -14,17 +14,19 @@ import data
 OAK = fcs.aploc(data.OAKhub)
 AWF = fcs.aploc(data.AFWhub_s)
 
+V_A = np.vstack((AWF[0], AWF[1], AWF[2], AWF[3])) #Set of verification airports
+
 #%%Model parameters
 rnd = np.random
 rnd.seed(0)
-n = len(AWF)-1                         #number of clients
-Q = 40                                 #capacity of each vehicle
+n = len(V_A)-1                         #number of clients
+Q = 20                                 #capacity of each vehicle
 N = [i for i in range(1, n+1)]         # Set of Customers
 V = [0] + N                            # Nodes
-q = {i: rnd.randint(1,10) for i in N}  # Demand of customer i
+q = {1: 10, 2: 9, 3: 12}               # Adjusted customer demand
 P = {i:0.5 for i in V}                 # Processing time of customer i
-e = {i:rnd.randint(0,21) for i in V}   # Lower bound of time window
-l = {i:e[i]+5 for i in V}              # Upper bound of time window
+e = {1: 8, 2: 10, 3: 12}                # Lower bound of time window
+l = {1: 12, 2: 14, 3: 16}              # Upper bound of time window
 
 A = [(i,j) for i in V for j in V if i != j] #arcs
 c = {(i,j): round(distance.distance(AWF[i,1:3],AWF[j,1:3]).km,2) for i,j in A} #cost (distance)
@@ -35,14 +37,14 @@ mdl = Model('CVRP') #create the model
 
 x = mdl.binary_var_dict(A, name='x') #variables x are binary, use binary format to keep amount variables low
 u = mdl.continuous_var_dict(N, ub=Q, name='u')      #   Variable that stores cargo amount
-tau = mdl.continuous_var_dict(V, name='tau')        #   Decision variable for start of service time
+tau = mdl.continuous_var_dict(N, name='tau')        #   Decision variable for start of service time
 
 
 mdl.minimize(mdl.sum(c[i, j]*x[i,j] for i, j in A)) #objective funtion
 mdl.add_constraints(mdl.sum(x[i,j] for j in V if j != i) == 1 for i in N) #all nodes must be visited once
 mdl.add_constraints(mdl.sum(x[i,j] for i in V if i != j) == 1 for j in N) #all nodes must be exited once
-mdl.add_constraints(tau[i] >= e[i] for i in V)  # Time window Lower bound constraint
-mdl.add_constraints(tau[i] <= l[i] for i in V)  # Time window upper bound constraint
+mdl.add_constraints(tau[i] >= e[i] for i in N)  # Time window Lower bound constraint
+mdl.add_constraints(tau[i] <= l[i] for i in N)  # Time window upper bound constraint
 mdl.add_constraints(u[i]>=q[i] for i in N)      # Lower bound constraint for capacity
 
 #indicator constraints are only enforced if a condition is met: if x[i,j]=1 then u[j] is etc..
