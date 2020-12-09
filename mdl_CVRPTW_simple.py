@@ -34,7 +34,7 @@ t = {(i,j): round(distance.distance(AWF[i,1:3],AWF[j,1:3]).km/850,2) for i,j in 
 mdl = Model('CVRP') #create the model
 
 x = mdl.binary_var_dict(A, name='x') #variables x are binary, use binary format to keep amount variables low
-u = mdl.continuous_var_dict(N, ub=Q, name='u')
+u = mdl.continuous_var_dict(N, ub=Q, name='u')      #   Variable that stores cargo amount
 tau = mdl.continuous_var_dict(V, name='tau')        #   Decision variable for start of service time
 
 
@@ -43,7 +43,7 @@ mdl.add_constraints(mdl.sum(x[i,j] for j in V if j != i) == 1 for i in N) #all n
 mdl.add_constraints(mdl.sum(x[i,j] for i in V if i != j) == 1 for j in N) #all nodes must be exited once
 mdl.add_constraints(tau[i] >= e[i] for i in V)  # Time window Lower bound constraint
 mdl.add_constraints(tau[i] <= l[i] for i in V)  # Time window upper bound constraint
-mdl.add_constraints(u[i]>=q[i] for i in N)      # Lower bound constraint
+mdl.add_constraints(u[i]>=q[i] for i in N)      # Lower bound constraint for capacity
 
 #indicator constraints are only enforced if a condition is met: if x[i,j]=1 then u[j] is etc..
 mdl.add_indicator_constraints(mdl.indicator_constraint(x[i,j], u[i]+q[j] == u[j]) for i,j in A if i !=0 and j !=0)
