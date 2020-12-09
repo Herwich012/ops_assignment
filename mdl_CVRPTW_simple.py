@@ -41,8 +41,8 @@ tau = mdl.continuous_var_dict(V, name='tau')        #   Decision variable for st
 mdl.minimize(mdl.sum(c[i, j]*x[i,j] for i, j in A)) #objective funtion
 mdl.add_constraints(mdl.sum(x[i,j] for j in V if j != i) == 1 for i in N) #all nodes must be visited once
 mdl.add_constraints(mdl.sum(x[i,j] for i in V if i != j) == 1 for j in N) #all nodes must be exited once
-mdl.add_constraints(tau[i] >= e[i] for i in V)  # Time window Lower bound constraint
-mdl.add_constraints(tau[i] <= l[i] for i in V)  # Time window upper bound constraint
+mdl.add_constraints(tau[i] >= e[i] for i in N)  # Time window Lower bound constraint
+mdl.add_constraints(tau[i] <= l[i] for i in N)  # Time window upper bound constraint
 mdl.add_constraints(u[i]>=q[i] for i in N)      # Lower bound constraint for capacity
 
 #indicator constraints are only enforced if a condition is met: if x[i,j]=1 then u[j] is etc..
