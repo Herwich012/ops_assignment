@@ -57,3 +57,8 @@ AFWhub = ['AFW', 'PDX', 'MSP', 'ORD', 'DEN',
           'SHV', 'AUS', 'IAH', 'MSY', 'SAT',
           'FLL', 'HRL']
 
+AWFhub_s = ['AFW', 'PDX', 'MSP', 'ORD',
+            'OAK', 'MCI', 'ICT', 'LAX',
+            'LBB', 'ATL', 'ELP', 'DEN',
+            'SHV', 'IAH', 'MSY', 'SAT',
+            'FLL', 'HRL']
