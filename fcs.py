@@ -95,7 +95,7 @@ def solplottw(aplocs,solarcs,twb,twe,tau):
                zorder=2) #plot clients
     ax.plot(aplocs[0,2], aplocs[0,1], c='r', marker='s',
             transform=ccrs.PlateCarree(), zorder=2) #plot hub
-    for i in range(len(aplocs)): #annotate locations
+    for i in range(1, len(aplocs)): #annotate locations
         anntxt = str(aplocs[i,0]) + '-' + str(twb[i]) + '-' + str(twe[i]) + '-' + '%0.1f' % (tau[i])
         ax.text(aplocs[i,2]+0.5, aplocs[i,1]-0.5, anntxt, weight='bold', transform=ccrs.Geodetic(), zorder=2)
     plt.show()
