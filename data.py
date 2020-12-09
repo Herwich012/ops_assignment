@@ -1,4 +1,4 @@
-MEMhub = ['MEM', 'ANC', 'SEA', 'GEG', 'GFT',
+MEMhub = ['MEM', 'ANC', 'SEA', 'GEG', 'GTF',
           'PDX', 'BIL', 'PWM', 'BOI', 'MSP',
           'MHT', 'RNO', 'SLC', 'CPR', 'FSD',
           'RST', 'ATW', 'FNT', 'BUR', 'ROC',
@@ -16,13 +16,13 @@ MEMhub = ['MEM', 'ANC', 'SEA', 'GEG', 'GFT',
           'GSO', 'RDU', 'ORF', 'RIC', 'ROA',
           'OKC', 'TUL', 'SGF', 'STL', 'DSM',
           'CID', 'PIA', 'MSN', 'MKE', 'ORD',
-          'SBN', 'FNT', 'DWT', 'GRR', 'FWA',
+          'SBN', 'FNT', 'DTW', 'GRR', 'FWA',
           'CLE', 'PIT', 'SDF', 'CVG', 'DAY',
           'LCK', 'HTS', 'CRW', 'IAD', 'BWI',
           'MDT', 'PHL', 'ABE', 'JFK', 'EWR',
-          'SWT', 'HNL', 'BQN', 'SJU']
+          'HNL', 'BQN', 'SJU']
 
-MEMhub_s = ['MEM', 'SEA', 'GEG', 'GFT', 'SWT'
+MEMhub_s = ['MEM', 'SEA', 'GEG', 'GTF',
           'PDX', 'BIL', 'PWM', 'BOI', 'MSP',
           'MHT', 'RNO', 'SLC', 'CPR', 'FSD',
           'RST', 'ATW', 'FNT', 'BUR', 'ROC',
@@ -40,10 +40,11 @@ MEMhub_s = ['MEM', 'SEA', 'GEG', 'GFT', 'SWT'
           'GSO', 'RDU', 'ORF', 'RIC', 'ROA',
           'OKC', 'TUL', 'SGF', 'STL', 'DSM',
           'CID', 'PIA', 'MSN', 'MKE', 'ORD',
-          'SBN', 'FNT', 'DWT', 'GRR', 'FWA',
+          'SBN', 'FNT', 'DTW', 'GRR', 'FWA',
           'CLE', 'PIT', 'SDF', 'CVG', 'DAY',
           'LCK', 'HTS', 'CRW', 'IAD', 'BWI',
           'MDT', 'PHL', 'ABE', 'JFK', 'EWR']
+
 
 OAKhub = ['OAK', 'AFW', 'ANC', 'IND', 'EWR',
           'MEM', 'SEA', 'PDX', 'RNO', 'SLC',
