@@ -91,9 +91,9 @@ def solplottw(aplocs,solarcs,twb,twe,tau):
     for i,j in solarcs: #plot lines of solution
         plt.plot([aplocs[i,2],aplocs[j,2]], [aplocs[i,1],aplocs[j,1]],
                  transform=ccrs.Geodetic(), c='b', alpha=0.5)
-    ax.scatter(aplocs[1:,2],aplocs[1:,1],transform=ccrs.PlateCarree(), 
+    ax.scatter(aplocs[2:,2],aplocs[2:,1],transform=ccrs.PlateCarree(), 
                zorder=2) #plot clients
-    ax.plot(aplocs[0,2], aplocs[0,1], c='r', marker='s',
+    ax.scatter(aplocs[0:2,2], aplocs[0:2,1], c='r', marker='s',
             transform=ccrs.PlateCarree(), zorder=2) #plot hub
 
     for i in range(1,len(aplocs)): #annotate locations
