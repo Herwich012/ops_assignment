@@ -13,19 +13,20 @@ import data
 
 #%%Select data
 OAK = fcs.aploc(data.OAKhub)
-AWF = fcs.aploc(data.MEMDENhub_s)
+AWF = fcs.aploc(data.AFWhub_s)    #fcs.aploc(data.MEMDENhub_s)
 
 #%%Model parameters
 rnd = np.random
 rnd.seed(0)
 n = len(AWF)-2                         #number of clients
-Q = 100                                 #capacity of each vehicle
+Q = 10000                                #capacity of each vehicle
 N = [i for i in range(2, n+2)]         # Set of Customers
-V = [0,1] + N                            # Nodes
+V = [0,1] + N                          # Nodes
 q = {i: rnd.randint(1,10) for i in N}  # Demand of customer i
 P = {i:0.5 for i in V}                 # Processing time of customer i
 e = {i:rnd.randint(0,21) for i in V}   # Lower bound of time window
 l = {i:e[i]+5 for i in V}              # Upper bound of time window
+fc = 1000                               # fixed cost
 
 A = [(i,j) for i in V for j in V if i != j] #arcs
 c = {(i,j): round(distance.distance(AWF[i,1:3],AWF[j,1:3]).km,2) for i,j in A} #cost (distance)
@@ -39,7 +40,7 @@ u = mdl.continuous_var_dict(N, ub=Q, name='u')      #   Variable that stores car
 tau = mdl.continuous_var_dict(V, name='tau')        #   Decision variable for start of service time
 
 
-mdl.minimize(mdl.sum(c[i, j]*x[i,j] for i, j in A)) #objective funtion
+mdl.minimize(mdl.sum(c[i, j]*x[i,j] for i, j in A) + mdl.sum(fc*x[0,j] for j in N) + mdl.sum(fc*x[1,j] for j in N)) #objective funtion
 mdl.add_constraints(mdl.sum(x[i,j] for j in V if j != i) == 1 for i in N) #all nodes must be visited once
 mdl.add_constraints(mdl.sum(x[i,j] for i in V if i != j) == 1 for j in N) #all nodes must be exited once
 mdl.add_constraints(tau[i] >= e[i] for i in N)  # Time window Lower bound constraint
