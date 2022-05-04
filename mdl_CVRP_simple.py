@@ -6,13 +6,13 @@ import data
 
 #%%Select data
 OAK = fcs.aploc(data.OAKhub)
-AWF = fcs.aploc(data.AFWhub)
+AWF = fcs.aploc(data.AFWhub_mini)
 
 #%%Model parameters
 rnd = np.random
 rnd.seed(0)
 n = len(AWF)-1                  #number of clients
-Q = 40                          #capacity of each vehicle
+Q = 1000                          #capacity of each vehicle
 N = [i for i in range(1, n+1)]
 V = [0] + N
 q = {i: rnd.randint(1,10) for i in N}
@@ -21,7 +21,7 @@ A = [(i,j) for i in V for j in V if i != j] #arcs
 c = {(i,j): round(distance.distance(AWF[i,1:3],AWF[j,1:3]).km,2) for i,j in A} #cost (distance)
 #%%Model Constraints and Solving
 mdl = Model('CVRP') #create the model
-
+    
 x = mdl.binary_var_dict(A, name='x') #variables x are binary, use binary format to keep amount variables low
 u = mdl.continuous_var_dict(N, ub=Q, name='u')
 

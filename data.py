@@ -51,17 +51,20 @@ OAKhub = ['OAK', 'AFW', 'ANC', 'IND', 'EWR',
           'MRY', 'FAT', 'VIS', 'LAS', 'LAX',
           'ONT', 'PHX', 'ATL', 'HNL'] #First airport should be the hub/depot!
 
-AFWhub = ['AFW', 'PDX', 'MSP', 'ORD', 'DEN',
-          'OAK', 'MCI', 'ICT', 'TUL', 'LAX',
+AFWhub = ['AFW', 'OAK', 'PDX', 'MSP', 'ORD', 
+          'MCI', 'ICT', 'TUL', 'LAX', 'DEN',
           'ONT', 'LBB', 'ATL', 'ELP', 'MAF',
           'SHV', 'AUS', 'IAH', 'MSY', 'SAT',
           'FLL', 'HRL']
 
-AFWhub_s = ['AFW', 'PDX', 'MSP', 'ORD',
-            'OAK', 'MCI', 'ICT', 'LAX',
+AFWhub_s = ['AFW', 'OAK' ,'PDX', 'MSP',
+            'ORD', 'MCI', 'ICT', 'LAX',
             'LBB', 'ATL', 'ELP', 'DEN',
             'SHV', 'IAH', 'MSY', 'SAT',
             'FLL', 'HRL']
+
+AFWhub_mini = ['AFW', 'PDX', 'MSP', 'ORD', 'DEN',
+          'OAK', 'MCI']
 
 MEMDENhub_s = ['MEM', 'DEN', 'GEG', 'GTF',
           'PDX', 'BIL', 'PWM', 'BOI', 'MSP',

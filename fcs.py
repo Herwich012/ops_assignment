@@ -8,11 +8,11 @@ import cartopy.feature as cfeature
 def aploc(APlist):
     """
     AIRPORT LAT&LONG data,
-    FIRST AIRPORT SHOULD BE THE HUB!\n
+    FIRST AIRPORT SHOULD BE THE HUB(S)!
     This function requires airports.csv 
-    to be in the same folder!\n
+    to be in the same folder!
     APlist = list of strings:
-    3-letter IATA codes of requested airports\n
+    3-letter IATA codes of requested airports
     Returns: Numpy array with size [[# of airports][3]]
     Row example: ['OAK', 37.721298, -122.221001]
     """
@@ -54,15 +54,14 @@ def solplot(aplocs,solarcs):
     ax.add_feature(cfeature.BORDERS, linestyle=':')
     ax.add_feature(cfeature.STATES)
     for i,j in solarcs: #plot lines of solution
-        plt.plot([aplocs[i,2],aplocs[j,2]], [aplocs[i,1],aplocs[j,1]],
-                 transform=ccrs.Geodetic(), c='b', alpha=0.5)
-    ax.scatter(aplocs[1:,2],aplocs[1:,1],transform=ccrs.PlateCarree(), 
-               zorder=2) #plot clients
-    ax.plot(aplocs[0,2], aplocs[0,1], c='r', marker='s',
-            transform=ccrs.PlateCarree(), zorder=2) #plot hub
+        plt.plot([aplocs[i,2],aplocs[j,2]], [aplocs[i,1],aplocs[j,1]], transform=ccrs.Geodetic(), c='b', alpha=0.5)
+        
+    ax.scatter(aplocs[1:,2],aplocs[1:,1],transform=ccrs.PlateCarree(), zorder=2) #plot clients
+    ax.plot(aplocs[0,2], aplocs[0,1], c='r', marker='s',transform=ccrs.PlateCarree(), zorder=2) #plot hub
+    
     for i in range(len(aplocs)): #annotate locations
         ax.text(aplocs[i,2]+0.5, aplocs[i,1]-0.5, str(aplocs[i,0]),
-                weight='bold', transform=ccrs.Geodetic(), zorder=2)
+                weight='bold', fontsize=14, transform=ccrs.Geodetic(), zorder=2)
     plt.show()
 
 #%% Plotting with time windows
@@ -96,12 +95,48 @@ def solplottw(aplocs,solarcs,twb,twe,tau):
     ax.scatter(aplocs[0:2,2], aplocs[0:2,1], c='r', marker='s',
             transform=ccrs.PlateCarree(), zorder=2) #plot hub
 
-    for i in range(1,len(aplocs)): #annotate locations
+    for i in range(0,len(aplocs)): #annotate locations
         anntxt = str(aplocs[i,0]) + '-' + str(twb[i]) + '-' + str(twe[i]) + '-' + '%0.1f' % (tau[i])
         ax.text(aplocs[i,2]+0.5, aplocs[i,1]-0.5, anntxt, weight='bold', transform=ccrs.Geodetic(), zorder=2)
     plt.show()
+    
+#%% Plotting with time windows
+def solplotcap(aplocs,solarcs,u,q):
+    """
+    Parameters
+    ----------
+    aplocs : np.array
+        output of the aploc function
+    solarcs : list
+        list of arcs beloning to the solution
 
+    Returns
+    -------
+    Figure of solution
 
+    """
+    fig = plt.figure()
+    ax = fig.add_axes([0, 0, 1, 1], projection=ccrs.LambertConformal(),frameon=False)
+    ax.patch.set_visible(False)
+    ax.set_extent([-120, -70, 22, 50], ccrs.Geodetic())
+    ax.add_feature(cfeature.OCEAN)
+    ax.add_feature(cfeature.COASTLINE)
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.STATES)
+    for i,j in solarcs: #plot lines of solution
+        plt.plot([aplocs[i,2],aplocs[j,2]], [aplocs[i,1],aplocs[j,1]],
+                 transform=ccrs.Geodetic(), c='b', alpha=0.5)
+    ax.scatter(aplocs[1:,2],aplocs[1:,1],transform=ccrs.PlateCarree(), 
+               zorder=2) #plot clients
+    ax.scatter(aplocs[0,2], aplocs[0,1], c='r', marker='s',
+            transform=ccrs.PlateCarree(), zorder=2) #plot hub
+
+    for i in range(1,len(aplocs)): #annotate locations
+        anntxt = str(aplocs[i,0]) + '-' + '%0.1f' % (u[i]) + '-' + str(q[i])
+        ax.text(aplocs[i,2]+0.5, aplocs[i,1]-0.5, anntxt, weight='bold', transform=ccrs.Geodetic(), zorder=2)
+    plt.show()
+
+#%%
 def hubplot(aplocs):
     """Plot the locations without solution for validation"""
     fig = plt.figure()
