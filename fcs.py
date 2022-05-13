@@ -30,7 +30,7 @@ def aploc(APlist):
     return aps
 
 
-#%% Plotting
+#%% Solution plot for simple model
 def solplot(aplocs,solarcs):
     """
     Parameters
@@ -62,6 +62,45 @@ def solplot(aplocs,solarcs):
     for i in range(len(aplocs)): #annotate locations
         ax.text(aplocs[i,2]+0.5, aplocs[i,1]-0.5, str(aplocs[i,0]),
                 weight='bold', fontsize=14, transform=ccrs.Geodetic(), zorder=2)
+    plt.show()
+    
+#%% Solution plot for 2 hubs
+def solplot_L(aplocs,solarcs,params):
+    """
+    Parameters
+    ----------
+    aplocs : np.array
+        output of the aploc function
+    solarcs : list
+        list of arcs beloning to the solution
+
+    Returns
+    -------
+    Figure of solution
+
+    """
+    fig = plt.figure()
+    ax = fig.add_axes([0, 0, 1, 1], projection=ccrs.LambertConformal(),frameon=False)
+    ax.patch.set_visible(False)
+    ax.set_extent([-120, -70, 22, 50], ccrs.Geodetic())
+    ax.add_feature(cfeature.OCEAN)
+    ax.add_feature(cfeature.COASTLINE)
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.STATES)
+    for i,j in solarcs: #plot lines of solution
+        plt.plot([aplocs[i,2],aplocs[j,2]], [aplocs[i,1],aplocs[j,1]],
+                 transform=ccrs.Geodetic(), c='b', alpha=0.5)
+    ax.scatter(aplocs[2:,2],aplocs[2:,1],transform=ccrs.PlateCarree(), 
+               zorder=2) #plot clients
+    ax.scatter(aplocs[0:2,2], aplocs[0:2,1], c='r', marker='s',
+            transform=ccrs.PlateCarree(), zorder=2) #plot hub
+    
+    for i in range(len(aplocs)): #annotate locations
+        ax.text(aplocs[i,2]+0.5, aplocs[i,1]-0.5, str(aplocs[i,0]),
+                weight='bold', fontsize=14, transform=ccrs.Geodetic(), zorder=2)
+        
+    plt.axis('off')
+    plt.title('Capacity: ' + str(params[0]) + ' - Demand: ' + str(params[1]) + ' - Fixed Cost: ' + str(params[2]))
     plt.show()
 
 #%% Plotting with time windows
@@ -100,7 +139,7 @@ def solplottw(aplocs,solarcs,twb,twe,tau):
         ax.text(aplocs[i,2]+0.5, aplocs[i,1]-0.5, anntxt, weight='bold', transform=ccrs.Geodetic(), zorder=2)
     plt.show()
     
-#%% Plotting with time windows
+#%% Plotting with capacity
 def solplotcap(aplocs,solarcs,u,q):
     """
     Parameters

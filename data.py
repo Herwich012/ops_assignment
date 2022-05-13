@@ -1,3 +1,5 @@
+#First airport(s) should be the hub/depot!
+
 MEMhub = ['MEM', 'ANC', 'SEA', 'GEG', 'GTF',
           'PDX', 'BIL', 'PWM', 'BOI', 'MSP',
           'MHT', 'RNO', 'SLC', 'CPR', 'FSD',
@@ -49,7 +51,7 @@ MEMhub_s = ['MEM', 'SEA', 'GEG', 'GTF',
 OAKhub = ['OAK', 'AFW', 'ANC', 'IND', 'EWR',
           'MEM', 'SEA', 'PDX', 'RNO', 'SLC',
           'MRY', 'FAT', 'VIS', 'LAS', 'LAX',
-          'ONT', 'PHX', 'ATL', 'HNL'] #First airport should be the hub/depot!
+          'ONT', 'PHX', 'ATL', 'HNL'] 
 
 AFWhub = ['AFW', 'OAK', 'PDX', 'MSP', 'ORD', 
           'MCI', 'ICT', 'TUL', 'LAX', 'DEN',
