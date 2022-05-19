@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs #conda install cartopy
 import cartopy.feature as cfeature
+plt.ioff()
 
 #%% Data acquisition
 def aploc(APlist):
@@ -89,9 +90,9 @@ def solplot_L(aplocs,solarcs,params):
     ax.add_feature(cfeature.STATES)
     for i,j in solarcs: #plot lines of solution
         plt.plot([aplocs[i,2],aplocs[j,2]], [aplocs[i,1],aplocs[j,1]],
-                 transform=ccrs.Geodetic(), c='b', alpha=0.5)
+                  transform=ccrs.Geodetic(), c='b', alpha=0.5)
     ax.scatter(aplocs[2:,2],aplocs[2:,1],transform=ccrs.PlateCarree(), 
-               zorder=2) #plot clients
+                zorder=2) #plot clients
     ax.scatter(aplocs[0:2,2], aplocs[0:2,1], c='r', marker='s',
             transform=ccrs.PlateCarree(), zorder=2) #plot hub
     
@@ -100,9 +101,12 @@ def solplot_L(aplocs,solarcs,params):
                 weight='bold', fontsize=14, transform=ccrs.Geodetic(), zorder=2)
         
     plt.axis('off')
-    plt.title('Capacity: ' + str(params[0]) + ' - Demand: ' + str(params[1]) + ' - Fixed Cost: ' + str(params[2]))
-    plt.show()
-
+    plt.title('Capacity: ' + str(params[0]) + ' - Demand: ' + str(params[1]) + ' - Fixed Cost: ' + str(params[2]) + ' - Objective: ' + str(params[3]))
+    #plt.show()
+    floc = 'D:\\0HUISWERK\\AE Msc\\AE4441 Operations Optimisations\\Report\\figures\\sensitivity\\automated'
+    fname = str(floc + '\\' + str(params[0]) + '-' + str(params[1]) + '-' + str(params[2]) + '.png')
+    plt.savefig(fname, dpi='figure', bbox_inches='tight', facecolor='auto', edgecolor='auto')
+    
 #%% Plotting with time windows
 def solplottw(aplocs,solarcs,twb,twe,tau):
     """
